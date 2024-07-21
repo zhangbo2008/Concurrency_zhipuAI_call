@@ -10,15 +10,15 @@ import (
 	"time"
 )
 
-var zhipuapikey = "607ed42066795debfa14d2b0179f8225.S7uAn91rqRG8USrb" //===========input your key for 智普ai
+var zhipuapikey = "xxxxxxxxxxxxxxxxxx" //===========input your key for 智普ai
 
 func main() {
 	allmes := []string{"你好1", "今天天气如何", "你会不会死", "你是谁啊", "我是谁", "你好1", "今天天气如何", "你会不会死", "你是谁啊", "我是谁"}
 	var wg sync.WaitGroup
 	wg.Add(len(allmes)) // 添加两个子协程
 	t := time.Now()
-
-	aa := func(a11 string) string { //go不支持函数嵌套, 但是可以写匿名函数,然后在外面给他命名aa即可.go语法很弱智.
+	result := make([]string, len(allmes))
+	aa := func(dex int, a11 string) string { //go不支持函数嵌套, 但是可以写匿名函数,然后在外面给他命名aa即可.go语法很弱智.
 		defer wg.Done()
 		type yitiao struct {
 			Role    string `json:"role"`
@@ -51,15 +51,19 @@ func main() {
 		defer resp.Body.Close()
 
 		body, _ := io.ReadAll(resp.Body)
-		fmt.Println(string(body))
-
+		// fmt.Println(string(body))
+		result[dex] = string(body)
 		return string(body)
 	}
-	for _, x := range allmes {
-		go aa(x)
+	for dex, x := range allmes {
+		go aa(dex, x)
 	}
 
 	wg.Wait() // 等待所有子协程完成
 	t2 := time.Now()
 	fmt.Println("实用了多长时间", t2.Sub(t))
+	print("打印最终结果")
+	for _, x := range result {
+		println(x)
+	}
 }
