@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-var zhipuapikey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" //===========input your key for 智普ai
+var zhipuapikey = "607ed42066795debfa14d2b0179f8225.S7uAn91rqRG8USrb" //===========input your key for 智普ai
 
 func main() {
 	allmes := []string{"你好1", "今天天气如何", "你会不会死", "你是谁啊", "我是谁", "你好1", "今天天气如何", "你会不会死", "你是谁啊", "我是谁"}
